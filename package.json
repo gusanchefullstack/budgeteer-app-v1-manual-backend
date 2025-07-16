@@ -1,0 +1,30 @@
+{
+  "name": "budgeteer-app-v1-manual-backend",
+  "version": "1.0.0",
+  "description": "App for personal budget control using MERN stack",
+  "keywords": [
+    "[\"expressjs\"",
+    "\"nodejs\"",
+    "\"mongodb\"",
+    "\"prisma.io\"",
+    "\"react.js\"",
+    "\"tailwindcss\"",
+    "\"budget",
+    "control\"]"
+  ],
+  "homepage": "https://github.com/gusanchefullstack/budgeteer-app-v1-manual-backend#readme",
+  "bugs": {
+    "url": "https://github.com/gusanchefullstack/budgeteer-app-v1-manual-backend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gusanchefullstack/budgeteer-app-v1-manual-backend.git"
+  },
+  "license": "MIT",
+  "author": "Gustavo Sanchez <gustavosanchezgalarza@gmail.com>",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
