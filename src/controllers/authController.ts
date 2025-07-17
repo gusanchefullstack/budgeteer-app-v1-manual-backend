@@ -1,16 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { Prisma } from "../generated/prisma";
 
-import userServices from "../services/userServices";
-
-const getUsers = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const users = await userServices.getUsers();
-    res.json({ status: "Ok", data: users });
-  } catch (error) {
-    next(error);
-  }
-};
+import userServices from "../services/authServices";
 
 const registerUser = async (
   req: Request,
@@ -28,7 +19,9 @@ const registerUser = async (
 
 const loginUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    return res.json({ message: "Logging user" });
+    const credentials:Pick<Prisma.UserCreateInput, "username" | "password">  = req.body;
+    const token = await userServices.loginUser(credentials);
+    res.json({ status: "User loggedIn", data: token})
   } catch (error) {
     next(error);
   }
@@ -37,5 +30,4 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
 export default {
   registerUser,
   loginUser,
-  getUsers
 };
