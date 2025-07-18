@@ -1,8 +1,7 @@
-import { Prisma, PrismaClient } from "../generated/prisma";
+import { Prisma } from "../generated/prisma";
+import prisma from "./prismaClient";
 import { hashPassword, verifyPassword } from "../utils/encryptPassword";
 import { generateJWToken } from "../utils/manageJsonWebToken";
-
-const prisma = new PrismaClient();
 
 const registerUser = async (userData: Prisma.UserCreateInput) => {
   try {

@@ -21,7 +21,7 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const credentials:Pick<Prisma.UserCreateInput, "username" | "password">  = req.body;
     const token = await userServices.loginUser(credentials);
-    res.json({ status: "User loggedIn", data: token})
+    res.json({ status: "Successful login", token: token})
   } catch (error) {
     next(error);
   }

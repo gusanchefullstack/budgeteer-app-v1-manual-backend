@@ -1,25 +1,33 @@
-import jwt from "jsonwebtoken"
-import config from "../config/config"
+import jwt, { JwtPayload } from "jsonwebtoken";
+import config from "../config/config";
 import { Prisma } from "../generated/prisma";
 
-export async function generateJWToken(payload:Pick<Prisma.UserCreateInput, "id" | "username">):Promise<string> {
-    const privateKey = config.jwt;
-    const token = await jwt.sign(payload, privateKey, { expiresIn: "24h", issuer:"budget-control-app", subject: payload.id})
-    return token;
+export async function generateJWToken(
+  payload: Pick<Prisma.UserCreateInput, "id" | "username">
+): Promise<string> {
+  const privateKey = config.jwt;
+  const token = await jwt.sign(payload, privateKey, {
+    expiresIn: "24h",
+    issuer: "budget-control-app",
+    subject: payload.id,
+  });
+  return token;
 }
 
-export async function validateJWToken(token:string) {
-    try {
+export function validateJWToken(
+  token: string
+): JwtPayload | string {
+  try {
     const privateKey = config.jwt;
-    const decoded = jwt.verify(token, privateKey);
-    return decoded;
+    const payload = jwt.verify(token, privateKey);
+    return payload;
   } catch (error) {
     if (error instanceof jwt.TokenExpiredError) {
-      throw new Error('Token expirado');
+      throw new Error("Expired Token");
     } else if (error instanceof jwt.JsonWebTokenError) {
-      throw new Error('Token inválido');
+      throw new Error("Invalid Token");
     } else {
-      throw new Error('Error al validar token');
+      throw new Error("Error while validating token");
     }
   }
 }

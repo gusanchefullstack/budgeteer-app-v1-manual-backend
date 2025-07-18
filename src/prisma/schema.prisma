@@ -25,14 +25,134 @@ enum UserStatus {
   DELETED
 }
 
+enum TransactionType {
+  EXPENSE
+  INCOME
+}
+
+enum BudgetStatus {
+  ACTIVE
+  INACTIVE
+  CLOSED
+  DELETED
+}
+
+enum BudgetCategoryType {
+  EXPENSES
+  INCOMES
+}
+
+enum TransactionFrequency {
+  DAILY
+  WEEKLY
+  MONTHLY
+  QUARTERLY
+  SEMIANNUALY
+  ANNUALY
+  ONETIME
+}
+
 model User {
-  id        String     @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  username  String     @unique
-  password  String
-  status    UserStatus @default(ACTIVE)
-  role      Role       @default(USER)
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  username     String        @unique
+  password     String
+  status       UserStatus    @default(ACTIVE)
+  role         Role          @default(USER)
+  accounts     Account[]
+  externals    LegalEntity[]
+  transactions Transaction[]
+  budgets      Budget[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
   @@map("users")
+}
+
+model Account {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  description  String
+  institution  String
+  legalId      String        @unique
+  balance      Float
+  owner        User          @relation(fields: [ownerId], references: [id])
+  ownerId      String        @db.ObjectId
+  transactions Transaction[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@map("accounts")
+}
+
+model LegalEntity {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  description  String
+  legalId      String        @unique
+  owner        User          @relation(fields: [ownerId], references: [id])
+  ownerId      String        @db.ObjectId
+  transactions Transaction[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@map("legalEntities")
+}
+
+model Transaction {
+  id              String          @id @default(auto()) @map("_id") @db.ObjectId
+  description     String
+  transactionType TransactionType @default(EXPENSE)
+  ownerId         String          @db.ObjectId
+  owner           User            @relation(fields: [ownerId], references: [id])
+  amount          Float
+  timestamp       DateTime
+  LegalEntity     LegalEntity?    @relation(fields: [legalEntityId], references: [id])
+  legalEntityId   String?         @db.ObjectId
+  Account         Account?        @relation(fields: [accountId], references: [id])
+  accountId       String?         @db.ObjectId
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  @@map("transactions")
+}
+
+model Budget {
+  id          String           @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  starDate    DateTime
+  endDate     DateTime
+  owner       User             @relation(fields: [ownerId], references: [id])
+  ownerId     String           @db.ObjectId
+  status      BudgetStatus     @default(ACTIVE)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  incomes     BudgetCategory[]
+  expenses    BudgetCategory[]
+}
+
+type BudgetCategory {
+  categoryName String
+  description  String
+  categoryType BudgetCategoryType
+  concepts     BudgetConcept[]
+}
+
+type BudgetConcept {
+  name            String
+  description     String
+  frequency       TransactionFrequency  @default(MONTHLY)
+  estimatedAmount Float
+  estimatedDate   DateTime
+  operations      BudgetConceptBucket[]
+}
+
+type BudgetConceptBucket {
+  estimatedAmount Float
+  currentAmount   Float
+  estimatedDate   DateTime
+  currentDate     DateTime
+  source          Json
+  destination     Json
 }
