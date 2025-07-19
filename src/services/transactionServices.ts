@@ -8,6 +8,7 @@ const createTransaction = async (transactionData: ITransactionCreate) => {
         id: transactionData.ownerId,
       },
       select: {
+        username:true,
         accounts: true,
         externals: true,
       },

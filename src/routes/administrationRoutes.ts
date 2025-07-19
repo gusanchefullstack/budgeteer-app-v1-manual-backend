@@ -1,6 +1,6 @@
 import Router from "express";
 import adminController from "../controllers/adminController";
-import { protect } from "../middlewares/validateJWTMiddleware";
+import { protect } from "../middlewares/jwtValidatorHandler";
 
 export const administrationRouter = Router();
 
