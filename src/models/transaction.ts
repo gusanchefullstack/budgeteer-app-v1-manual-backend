@@ -1,8 +1,11 @@
-import { TransactionType } from "./enums"
-export interface Transaction {
-    id: string
-    amount: number
-    date: Date
-    userId: string
-    type: TransactionType
+import { TransactionType } from "./enums";
+
+export interface ITransactionCreate {
+  description: string;
+  transactionType: TransactionType;
+  ownerId: string;
+  amount: number;
+  timestamp: Date;
+  legalEntityId: string;
+  accountId: string;
 }

@@ -1,17 +1,13 @@
-export interface IAccountCreate {
+export interface ILegalEntityCreate {
   name: string;
   description: string;
-  institution: string;
   legalId: string;
-  balance: number;
   ownerId: string;
 }
-export interface IAccountUpdate {
+export interface ILegalEntityUpdate {
   name?: string;
   description?: string;
-  institution?: string;
   legalId?: string;
-  balance?: number;
   ownerId?: string;
 }
 

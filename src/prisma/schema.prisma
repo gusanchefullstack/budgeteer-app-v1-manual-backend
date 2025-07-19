@@ -130,6 +130,8 @@ model Budget {
   updatedAt   DateTime         @updatedAt
   incomes     BudgetCategory[]
   expenses    BudgetCategory[]
+
+  @@map("budget")
 }
 
 type BudgetCategory {
