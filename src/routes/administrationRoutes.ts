@@ -5,5 +5,6 @@ import { protect } from "../middlewares/jwtValidatorHandler";
 export const administrationRouter = Router();
 
 administrationRouter.get("/users", protect, adminController.getUsers);
+administrationRouter.get("/transactions", protect, adminController.getTransactions);
 
 

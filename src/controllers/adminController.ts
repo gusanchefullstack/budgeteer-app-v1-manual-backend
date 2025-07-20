@@ -10,6 +10,20 @@ const getUsers = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const getTransactions = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const transactions = await adminServices.listTransactions();
+    res.json({ status: "Ok", data: transactions });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getUsers,
+  getTransactions,
 };

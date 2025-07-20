@@ -13,6 +13,15 @@ const getUsers = async () => {
   }
 };
 
+const listTransactions = async () => {
+  try {
+    const transactions = await prisma.transaction.findMany();
+    return transactions;
+  } catch (error) {
+    throw new Error("Error reading transactions from DB");
+  }
+};
 export default {
   getUsers,
+  listTransactions,
 };

@@ -27,3 +27,13 @@ export enum AccountType {
   Pension = "PENSION",
   CD = "CDT",
 }
+
+export enum Frequency {
+  Daily = "DAILY",
+  Weekly = "WEEKLY",
+  Monthly = "MONTHLY",
+  Quarterly = "QUARTERLY",
+  SemiAnnually = "SEMMIANUALLY",
+  Annually = "ANNUALY",
+  OneTime = "ONETIME",
+}
