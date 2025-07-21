@@ -152,9 +152,9 @@ type BudgetConcept {
 
 type BudgetConceptBucket {
   estimatedAmount Float
-  currentAmount   Float
+  currentAmount   Float?
   estimatedDate   DateTime
-  currentDate     DateTime
+  currentDate     DateTime?
   source          Json
   destination     Json
 }

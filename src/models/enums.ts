@@ -28,7 +28,7 @@ export enum AccountType {
   CD = "CDT",
 }
 
-export enum Frequency {
+export enum TransactionFrequency {
   Daily = "DAILY",
   Weekly = "WEEKLY",
   Monthly = "MONTHLY",

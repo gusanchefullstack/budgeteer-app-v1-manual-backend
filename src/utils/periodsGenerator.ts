@@ -7,31 +7,31 @@ import {
   eachWeekOfInterval,
   eachYearOfInterval,
 } from "date-fns";
-import { Frequency } from "../models/enums";
+import { TransactionFrequency } from "../models/enums";
 
 export const getIntervalsByFrequency = (
   startDate: string,
   endDate: string,
-  frequency: Frequency
+  frequency: TransactionFrequency
 ) => {
   let periods: Date[] = [];
   switch (frequency) {
-    case Frequency.Daily:
+    case TransactionFrequency.Daily:
       periods = eachDayOfInterval({ start: startDate, end: endDate });
       break;
-    case Frequency.Weekly:
+    case TransactionFrequency.Weekly:
       periods = eachWeekOfInterval(
         { start: startDate, end: endDate },
         { weekStartsOn: 1 }
       );
       break;
-    case Frequency.Monthly:
+    case TransactionFrequency.Monthly:
       periods = eachMonthOfInterval({ start: startDate, end: endDate });
       break;
-    case Frequency.Quarterly:
+    case TransactionFrequency.Quarterly:
       periods = eachQuarterOfInterval({ start: startDate, end: endDate });
       break;
-    case Frequency.SemiAnnually:
+    case TransactionFrequency.SemiAnnually:
       const numberOfDays = differenceInCalendarDays(endDate, startDate);
       if (numberOfDays > 180) {
         const middleDate = addDays(startDate, 180);
@@ -44,10 +44,10 @@ export const getIntervalsByFrequency = (
         periods = eachYearOfInterval({ start: startDate, end: endDate });
       }
       break;
-    case Frequency.Annually:
+    case TransactionFrequency.Annually:
       periods = eachYearOfInterval({ start: startDate, end: endDate });
       break;
-    case Frequency.OneTime:
+    case TransactionFrequency.OneTime:
       const daysOfPeriod = eachDayOfInterval({
         start: startDate,
         end: endDate,
