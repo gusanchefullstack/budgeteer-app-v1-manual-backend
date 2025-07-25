@@ -1,5 +1,10 @@
 import { UserStatus, Role } from "./enums";
-import { Transaction } from "./transaction";
+// import { Transaction } from "./transaction";
+
+export type User = {
+  username: string,
+  id: string,
+}
 
 export interface UserCreate {
   name: string;

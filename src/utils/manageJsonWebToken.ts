@@ -14,9 +14,7 @@ export async function generateJWToken(
   return token;
 }
 
-export function validateJWToken(
-  token: string
-): JwtPayload | string {
+export function validateJWToken(token: string): JwtPayload | string {
   try {
     const privateKey = config.jwt;
     const payload = jwt.verify(token, privateKey);

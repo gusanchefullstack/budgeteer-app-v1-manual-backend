@@ -49,15 +49,11 @@ accountRouter.post(
     .withMessage("Missing account legalId")
     .isLength({ min: 3, max: 32 })
     .withMessage("Invalid name length: min:3 max:32"),
-  body("balance")
-    .toFloat()
-    .isFloat()
-    .withMessage("Invalid balance format"),
   body("ownerId")
     .exists()
     .trim()
     .notEmpty()
-    .withMessage("Missing account ownerId")
+    .withMessage("Missing budget ownerId")
     .isMongoId()
     .withMessage("Invalid owner id"),
   inputValidatorHandler,

@@ -7,9 +7,12 @@ export const createTransaction = async (
   next: NextFunction
 ) => {
   const transactionData = req.body;
+  const transactionUser = req.user;
   try {
-    const transaction =
-      await transactionServices.createTransaction(transactionData);
+    const transaction = await transactionServices.createTransaction(
+      transactionData,
+      transactionUser
+    );
     return res
       .status(200)
       .json({ message: "Transaction created sucessfully", data: transaction });

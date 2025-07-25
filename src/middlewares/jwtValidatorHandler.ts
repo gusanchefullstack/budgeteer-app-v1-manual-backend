@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { validateJWToken } from "../utils/manageJsonWebToken";
+import { User } from "../models/user";
 
 export async function protect(req: Request, res: Response, next: NextFunction) {
   try {
@@ -12,9 +13,9 @@ export async function protect(req: Request, res: Response, next: NextFunction) {
       return res.status(401).json({ error: "Not valid token" });
     }
     const payload = validateJWToken(token);
-    if (payload) {
-      next();
-    }
+    const { id, username } = payload;
+    req.user = { id, username } as User
+    next();
   } catch (error: any) {
     return res.status(401).json({ error: error.message });
   }

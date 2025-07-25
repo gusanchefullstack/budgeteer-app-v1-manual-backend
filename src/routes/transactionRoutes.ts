@@ -15,13 +15,6 @@ transactionRouter.post(
     .isLength({ min: 3, max: 128 })
     .withMessage("Invalid description length: min:3 max:128"),
   body("transactionType").isIn(["INCOME", "EXPENSE"]),
-  body("ownerId")
-    .exists()
-    .trim()
-    .notEmpty()
-    .withMessage("Missing transaction owner")
-    .isMongoId()
-    .withMessage("Invalid transaction owner id"),
   body("amount")
     .toFloat()
     .isFloat()

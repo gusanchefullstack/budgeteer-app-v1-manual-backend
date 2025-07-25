@@ -6,6 +6,11 @@ const getUsers = async () => {
       omit: {
         password: true,
       },
+      include: {
+        budgets: true,
+        accounts: true,
+        externals: true,
+      },
     });
     return users;
   } catch (error) {

@@ -121,7 +121,7 @@ model Budget {
   id          String           @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   description String
-  starDate    DateTime
+  startDate    DateTime
   endDate     DateTime
   owner       User             @relation(fields: [ownerId], references: [id])
   ownerId     String           @db.ObjectId
